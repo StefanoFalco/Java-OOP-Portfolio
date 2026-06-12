@@ -1,0 +1,29 @@
+﻿# Maven build output
+target/
+
+# Compiled Java files
+*.class
+
+# IDE files
+.project
+.classpath
+.settings/
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+_logs/
+*.log
+*.tmp
+*.bak
+
+# Archives
+*.zip
+*.7z
+*.rar
+*.tar
+*.gz
