@@ -9,6 +9,7 @@ import java.util.Collection;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -20,24 +21,9 @@ public class SocialGui extends JFrame {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    /**
-     * The code of the person to log in.
-     */
     public JTextField id;
-
-    /**
-     * The button to perform login.
-     */
     public JButton login;
-
-    /**
-     * The label that shall contain the info of the logged in person.
-     */
     public JLabel name;
-
-    /**
-     * The list of friends of the person that is logged in.
-     */
     public JList<String> friends;
 
     private final Social social;
@@ -69,7 +55,6 @@ public class SocialGui extends JFrame {
         add(center, BorderLayout.CENTER);
 
         login.addActionListener(e -> performLogin());
-
         id.addActionListener(e -> performLogin());
 
         id.addKeyListener(new KeyAdapter() {
@@ -100,7 +85,24 @@ public class SocialGui extends JFrame {
         catch(NoSuchCodeException e) {
             name.setText("< user name >");
             friends.setListData(new String[0]);
-            JOptionPane.showMessageDialog(this, "Unknown person code", "Login error", JOptionPane.ERROR_MESSAGE);
+            showLoginErrorDialog();
         }
+    }
+
+    private void showLoginErrorDialog() {
+        JOptionPane optionPane = new JOptionPane(
+            "Unknown person code",
+            JOptionPane.ERROR_MESSAGE,
+            JOptionPane.DEFAULT_OPTION
+        );
+
+        JDialog dialog = optionPane.createDialog(this, "Login error");
+        dialog.setName("loginErrorDialog");
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.setModal(false);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+        dialog.toFront();
+        dialog.requestFocus();
     }
 }

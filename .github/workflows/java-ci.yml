@@ -1,4 +1,4 @@
-﻿name: Java CI
+name: Java CI
 
 on:
   push:
@@ -42,9 +42,11 @@ jobs:
       - name: Run Maven tests
         working-directory: ${{ matrix.project }}
         shell: bash
+        env:
+          MAVEN_OPTS: -Djava.awt.headless=false
         run: |
           if [ "${{ matrix.project }}" = "oop-social-network" ]; then
-            xvfb-run -a mvn clean test
+            xvfb-run -a --server-args="-screen 0 1920x1080x24" mvn clean test
           else
             mvn clean test
           fi
